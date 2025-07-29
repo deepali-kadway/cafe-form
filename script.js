@@ -52,8 +52,6 @@ $(document).ready(function() {
         // Hence, Convert object to string, so that we can later retrieve it and parse it back to an object.
         // This allows us to retrieve it later on the summary page
         localStorage.setItem('cafeOrderData', JSON.stringify(orderData));
-        
-        // console.log('Order data stored:', orderData);
 
         // Redirect to summary page
         window.location.href = 'summary.html';
