@@ -15,9 +15,13 @@
         padding: 30px;
         background-color: #f8f9fa;
         border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+        border: 2px solid #6f4e37;
       }
-
+      
+      .form-label, p{
+        font-weight: bold;
+      }
       .order-form h2 {
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         text-align: center;
@@ -38,10 +42,11 @@
         font-weight: bold;
         font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
           "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        background-color: #6f4e37;
       }
 
       #submit-btn:hover {
-        background-color: #463af3;
+        background-color: #5a3e2a;
         color: white;
       }
     </style>
@@ -89,7 +94,7 @@
 
     <!-- Order Coffee -->
     <form id="order-form" class="order-form">
-      <h2 class="">Place Your Order!</h2>
+      <h2 class="">📋☕ Place Your Order!</h2>
 
       <div class="mb-3">
         <label for="exampleInputName" class="form-label">Name</label>

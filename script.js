@@ -30,27 +30,32 @@ $(document).ready(function() {
             extrasTotal += extraPrice;
         });
 
-        // Calculate total
+        // Calculate total cost of the order
         const totalPrice = coffeePrice + extrasTotal;
 
-        // Create URL parameters
-        const params = new URLSearchParams();
-        params.append('name', customerName);
-        params.append('email', email);
-        params.append('phone', phone);
-        params.append('coffee', coffeeItem);
-        params.append('coffeePrice', coffeePrice);
-        params.append('extrasTotal', extrasTotal);
-        params.append('total', totalPrice);
-        
-        // Add extras as separate parameters
-        extras.forEach(function(extra, index) {
-            params.append(`extra${index}`, extra.item);
-            params.append(`extraPrice${index}`, extra.price);
-        });
-        params.append('extrasCount', extras.length);
+        // Create order data object
+        const orderData = {
+            customerName: customerName,
+            email: email,
+            phone: phone,
+            coffee: {
+                item: coffeeItem,
+                price: coffeePrice
+            },
+            extras: extras,
+            extrasTotal: extrasTotal,
+            total: totalPrice,
+            orderTime: new Date().toLocaleString() // convert date object to string. formats according to user's locale region
+        };
 
-        // Redirect with parameters
-        window.location.href = `summary.html?${params.toString()}`;
+        // Store in localStorage. localStorage can only store strings, not JavaScript Objects.
+        // Hence, Convert object to string, so that we can later retrieve it and parse it back to an object.
+        // This allows us to retrieve it later on the summary page
+        localStorage.setItem('cafeOrderData', JSON.stringify(orderData));
+        
+        // console.log('Order data stored:', orderData);
+
+        // Redirect to summary page
+        window.location.href = 'summary.html';
     });
 });

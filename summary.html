@@ -10,6 +10,7 @@
     />
     <style>
       .summary-container {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         max-width: 700px;
         margin: 40px auto;
         padding: 30px;
@@ -31,6 +32,7 @@
         border-radius: 8px;
         margin-bottom: 20px;
         border-left: 4px solid #6f4e37;
+        border-right: 4px solid #6f4e37;
       }
       
       .price-item {
@@ -50,12 +52,18 @@
       
       .btn-group {
         text-align: center;
-        margin-top: 30px;
+        margin-top: 30px;;
       }
       
-      .btn-confirm {
+      .btn-secondary{
+        background-color: rgb(99, 97, 97) !important;
+        border-radius: 5px !important;
+      }
+
+      .btn-confirm{
         background-color: #6f4e37;
         border: none;
+        border-radius: 5px !important;
         margin-right: 10px;
       }
       
@@ -65,7 +73,7 @@
     </style>
 </head>
 <body>
-    <!-- Same navbar as order.html -->
+    <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">Rimberio Cafe</a>
       <div class="collapse navbar-collapse">
@@ -77,6 +85,7 @@
       </div>
     </nav>
 
+    <!-- Order Summary -->
     <div class="summary-container">
         <h1 class="summary-header">☕ Order Summary</h1>
         
@@ -120,76 +129,55 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     $(document).ready(function() {
-        // Get URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
+        // Get order data from localStorage
+        const orderDataStr = localStorage.getItem('cafeOrderData');
         
-        // Check if we have data
-        if (!urlParams.has('name') || !urlParams.has('coffee')) {
+        // Check if we data is present in localStorage
+        if (!orderDataStr) {
             alert('No order data found. Redirecting to order page.');
             window.location.href = 'order.html';
             return;
         }
         
-        // Get basic order data
-        const customerName = urlParams.get('name');
-        const email = urlParams.get('email');
-        const phone = urlParams.get('phone');
-        const coffeeItem = urlParams.get('coffee');
-        const coffeePrice = parseFloat(urlParams.get('coffeePrice'));
-        const extrasTotal = parseFloat(urlParams.get('extrasTotal'));
-        const totalPrice = parseFloat(urlParams.get('total'));
-        const extrasCount = parseInt(urlParams.get('extrasCount')) || 0;
+        // Parse the order data (string to object)
+        const orderData = JSON.parse(orderDataStr);
+        console.log('Order data retrieved:', orderData);
         
-        // Get extras
-        let extras = [];
-        for (let i = 0; i < extrasCount; i++) {
-            const extraItem = urlParams.get(`extra${i}`);
-            const extraPrice = parseFloat(urlParams.get(`extraPrice${i}`));
-            if (extraItem) {
-                extras.push({
-                    item: extraItem,
-                    price: extraPrice
-                });
-            }
-        }
+        // Populate customer information on summary page
+        $('#customer-name').text(orderData.customerName);
+        $('#order-time').text(orderData.orderTime);
         
-        // Populate customer information
-        $('#customer-name').text(customerName);
-        $('#order-time').text(new Date().toLocaleString());
-        
-        // Populate coffee selection
+        // Populate coffee selection on summary page
         $('#coffee-selection').html(`
             <div class="price-item">
-                <span><strong>${coffeeItem}</strong></span>
-                <span>$${coffeePrice.toFixed(2)}</span>
+                <span><strong>${orderData.coffee.item}</strong></span>
+                <span>$${orderData.coffee.price.toFixed(2)}</span>
             </div>
         `);
         
-        // Populate extras
-        if (extras.length > 0) {
-            let extrasHtml = '';
-            extras.forEach(function(extra) {
-                extrasHtml += `
+        // Populate extras selection on summary page
+        $('#extras-selection').html(
+            orderData.extras.length > 0     // using ternary operator to check if extras exist
+                ? orderData.extras.map(extra => `
                     <div class="price-item">
                         <span>+ ${extra.item}</span>
                         <span>$${extra.price.toFixed(2)}</span>
                     </div>
-                `;
-            });
-            $('#extras-selection').html(extrasHtml);
-        } else {
-            $('#extras-selection').html('<p><em>No extras selected</em></p>');
-        }
+                `).join('')
+                : '<p><em>No extras selected</em></p>' //add emphasised text if no extras
+        );
         
-        // Populate prices
-        $('#coffee-price').text(`$${coffeePrice.toFixed(2)}`);
-        $('#extras-total').text(`$${extrasTotal.toFixed(2)}`);
-        $('#total-price').text(`$${totalPrice.toFixed(2)}`);
+        // Populate prices of all items
+        $('#coffee-price').text(`$${orderData.coffee.price.toFixed(2)}`);
+        $('#extras-total').text(`$${orderData.extrasTotal.toFixed(2)}`);
+        $('#total-price').text(`$${orderData.total.toFixed(2)}`);
     });
     
     function confirmOrder() {
+        // Clear the order data after confirmation
+        localStorage.removeItem('cafeOrderData');
         alert('Order confirmed! Thank you for choosing Rimberio Cafe.');
-        window.location.href = 'order.html';
+        window.location.href = 'index.html';
     }
     </script>
 </body>
