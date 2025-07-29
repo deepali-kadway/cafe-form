@@ -88,12 +88,22 @@
     </nav>
 
     <!-- Order Coffee -->
-    <form onsubmit="summary.html" class="order-form">
+    <form id="order-form" class="order-form">
       <h2 class="">Place Your Order!</h2>
 
       <div class="mb-3">
         <label for="exampleInputName" class="form-label">Name</label>
-        <input type="text" class="form-control" id="exampleInputName" />
+        <input type="text" class="form-control" id="exampleInputName" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone</label>
+        <input type="tel" class="form-control" id="phone" required />
       </div>
 
       <div class="mb-3">
@@ -105,7 +115,9 @@
           type="radio"
           class="form-radio-input"
           id="item1"
-          name="coffee1"
+          name="coffee"
+          value="Turkish coffee"
+          data-price="3"
         />
         <label class="form-radio-label" for="item1">Turkish coffee $3</label>
       </div>
@@ -115,7 +127,9 @@
           type="radio"
           class="form-radio-input"
           id="item2"
-          name="coffee2"
+          name="coffee"
+          value="American coffee"
+          data-price="5"
         />
         <label class="form-radio-label" for="item2">American coffee $5</label>
       </div>
@@ -125,7 +139,9 @@
           type="radio"
           class="form-radio-input"
           id="item3"
-          name="coffee3"
+          name="coffee"
+          value="Iced latte"
+          data-price="7"
         />
         <label class="form-radio-label" for="item3">Iced latte $7</label>
       </div>
@@ -140,6 +156,8 @@
           class="form-check-input"
           id="checkItem1"
           name="extra1"
+          value="Extra coffee"
+          data-price="1.5"
         />
         <label class="form-check-label" for="checkItem1"
           >Extra coffee 1.5$.</label
@@ -152,6 +170,8 @@
           class="form-check-input"
           id="checkItem2"
           name="extra2"
+          value="Whipped Cream"
+          data-price="2"
         />
         <label class="form-check-label" for="checkItem2"
           >Whipped cream 2$.</label
@@ -164,6 +184,8 @@
           class="form-check-input"
           id="checkItem3"
           name="extra3"
+          value="Extra caramel"
+          data-price="3"
         />
         <label class="form-check-label" for="checkItem3"
           >Extra caramel 3$.</label
@@ -201,5 +223,9 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+<script src="script.js"></script>
   </body>
 </html>
