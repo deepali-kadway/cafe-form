@@ -9,7 +9,7 @@ $(document).ready(function() {
 
         const selectedCoffee = $('.form-radio-input:checked');
         const coffeeItem = selectedCoffee.val();
-        const coffeePrice = parseFloat(selectedCoffee.data('price')) || 0;
+        const coffeePrice = parseFloat(selectedCoffee.data('price')) || 0; // jQuery method data('price') to get the price attribute
 
         // Debug logging
         console.log('Selected coffee:', coffeeItem, 'Price:', coffeePrice);
